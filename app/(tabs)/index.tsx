@@ -37,6 +37,13 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
+        <Link href="/todo" asChild>
+          <ThemedText type="link" style={styles.todoLink}>
+            📝 Todo App を開く
+          </ThemedText>
+        </Link>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
         <Link href="/modal">
           <Link.Trigger>
             <ThemedText type="subtitle">Step 2: Explore</ThemedText>
@@ -94,5 +101,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  todoLink: {
+    fontSize: 18,
+    fontWeight: '600',
   },
 });
