@@ -1,71 +1,31 @@
-import { useState } from 'react';
 import { StyleSheet, TextInput, Pressable, FlatList, View } from 'react-native';
 import { Stack } from 'expo-router';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useThemeColor } from '@/hooks/use-theme-color';
-
-interface Todo {
-  id: string;
-  text: string;
-  completed: boolean;
-}
+import { useTodo, type Todo } from '@/hooks/use-todo';
 
 export default function TodoScreen() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [inputText, setInputText] = useState('');
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editText, setEditText] = useState('');
+  const {
+    todos,
+    inputText,
+    setInputText,
+    editingId,
+    editText,
+    setEditText,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+    startEdit,
+    saveEdit,
+    cancelEdit,
+  } = useTodo();
 
   const backgroundColor = useThemeColor({}, 'background');
   const tintColor = useThemeColor({}, 'tint');
   const textColor = useThemeColor({}, 'text');
   const borderColor = useThemeColor({ light: '#ddd', dark: '#444' }, 'icon');
-
-  const addTodo = () => {
-    if (inputText.trim()) {
-      setTodos([
-        ...todos,
-        {
-          id: Date.now().toString(),
-          text: inputText.trim(),
-          completed: false,
-        },
-      ]);
-      setInputText('');
-    }
-  };
-
-  const toggleTodo = (id: string) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
-  };
-
-  const deleteTodo = (id: string) => {
-    setTodos(todos.filter(todo => todo.id !== id));
-  };
-
-  const startEdit = (todo: Todo) => {
-    setEditingId(todo.id);
-    setEditText(todo.text);
-  };
-
-  const saveEdit = () => {
-    if (editText.trim()) {
-      setTodos(todos.map(todo =>
-        todo.id === editingId ? { ...todo, text: editText.trim() } : todo
-      ));
-    }
-    setEditingId(null);
-    setEditText('');
-  };
-
-  const cancelEdit = () => {
-    setEditingId(null);
-    setEditText('');
-  };
 
   const renderTodo = ({ item }: { item: Todo }) => {
     const isEditing = editingId === item.id;
