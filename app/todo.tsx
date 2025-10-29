@@ -10,11 +10,11 @@ export default function TodoScreen() {
   const {
     todos,
     inputText,
-    setInputText,
     editingId,
     editText,
-    setEditText,
     addTodo,
+    updateInputText,
+    updateEditText,
     toggleTodo,
     deleteTodo,
     startEdit,
@@ -36,7 +36,7 @@ export default function TodoScreen() {
           <TextInput
             style={[styles.editInput, { color: textColor, borderColor }]}
             value={editText}
-            onChangeText={setEditText}
+            onChangeText={updateEditText}
             autoFocus
           />
           <View style={styles.editActions}>
@@ -88,7 +88,7 @@ export default function TodoScreen() {
           <TextInput
             style={[styles.input, { color: textColor, borderColor }]}
             value={inputText}
-            onChangeText={setInputText}
+            onChangeText={updateInputText}
             placeholder="新しいTodoを入力..."
             placeholderTextColor={borderColor}
             onSubmitEditing={addTodo}

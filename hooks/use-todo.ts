@@ -9,11 +9,11 @@ export interface Todo {
 export interface UseTodoReturn {
   todos: Todo[];
   inputText: string;
-  setInputText: (text: string) => void;
   editingId: string | null;
   editText: string;
-  setEditText: (text: string) => void;
   addTodo: () => void;
+  updateInputText: (text: string) => void;
+  updateEditText: (text: string) => void;
   toggleTodo: (id: string) => void;
   deleteTodo: (id: string) => void;
   startEdit: (todo: Todo) => void;
@@ -26,6 +26,14 @@ export function useTodo(): UseTodoReturn {
   const [inputText, setInputText] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
+
+  const updateInputText = (text: string) => {
+    setInputText(text);
+  };
+
+  const updateEditText = (text: string) => {
+    setEditText(text);
+  };
 
   const addTodo = () => {
     if (inputText.trim()) {
@@ -74,11 +82,11 @@ export function useTodo(): UseTodoReturn {
   return {
     todos,
     inputText,
-    setInputText,
     editingId,
     editText,
-    setEditText,
     addTodo,
+    updateInputText,
+    updateEditText,
     toggleTodo,
     deleteTodo,
     startEdit,
